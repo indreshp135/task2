@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>The last draw</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="icon" type="image/png" href="images/deltalogogreen.png">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel="stylesheet" type="text/css" href="css/corona.css">
+	<link rel="stylesheet" type="text/css" href="css/background.css">
+</head>
+<body bgcolor="black">
+	<audio autoplay loop class="back">
+		<source src="audio/back.mp3" type="audio/mp3">
+	</audio>
+	<audio class="aud">
+		<source src="audio/Button.mp3" type="audio/mp3">
+	</audio>
+	<audio class="gameo">
+		<source src="audio/gameo.wav" type="audio/wav">
+	</audio>
+	<audio class="point">
+		<source src="audio/point.wav" type="audio/wav">
+	</audio>
+	<div class="stars"></div>
+	<div class="twinkling"></div>
+	<div class="clouds"></div>
+	<div class="first">
+		<div class="container">
+			<div class="outercircle1">
+				<div class="point"></div>
+				<div class="outercircle"></div>
+			</div>
+			<div class="outercircle2">
+				<div class="point"></div>
+				<div class="outercircle"></div>
+			</div>
+			<div class="outercircle3">
+				<div class="point"></div>
+				<div class="outercircle"></div>
+			</div>
+			<div class="outercircle4">
+				<div class="point2"></div>
+				<div class="outercircle6"></div>
+			</div>
+			<div class="outercircle5">
+				<div class="point2"></div>
+				<div class="outercircle6"></div>
+			</div>
+			<div class="bigcircle"></div>
+			<div class="innercircle1"></div>
+			<div class="innercircle2"></div>
+			<div class="innercircle3"></div>
+			<div class="innercircle4"></div>
+			<div class="innercircle5"></div>
+			<div class="innercircle6"></div>
+			<div class="innercircle7"></div>
+			<div class="innercircle8"></div>
+			<div class="innercircle9"></div>
+			<div class="innercircle10"></div>
+			<div class="innercircle11"></div>
+			<div class="innercircle12"></div>
+			<div class="innercircle13"></div>
+			<div class="innercircle14"></div>
+		</div>
+		<center><div class="gradient-text">CORONTIME GAMES</div></center>
+		<center><div class="typewriter"><h1>The last draw...</h1></div></center>
+		<div class="btnhld"><button onmouseover="pl()" class="btn">Start Game</button></div>
+		<div class="btnhld1"><button onmouseover="pl()" class="btn">Multi_player</button></div>
+		<center><h2>Credits</h2></center>
+	</div>
+	<div class="canvas_box">
+		<canvas id="game" width="350px"></canvas>
+		<img src="images/multicolor-min.png" id="multicolor">
+		<img src="images/slow-min.png" id="slow">
+		<img src="images/play-min.png" id="play">
+		<img src="images/pause-min.png" id="pause">
+		<div id="score"><center><div id="scrdisp"></div></center></div>
+		<div id="highscore"><center><div id="hscrdisp"></div></center></div>
+	</div>
+	<div class="restart_box">
+		<div class="scorewriter"></div>
+		<img src="images/restart.png" id="restart">
+	</div>
+	<script src="javascript/main.js"></script>
+</body>
+</html>
