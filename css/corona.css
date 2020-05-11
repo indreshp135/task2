@@ -318,11 +318,11 @@
 }
 @keyframes glitter
 {
-	0%{text-shadow: 4px 4px 16px #ffffff;}
-	25%{text-shadow: 0px 0px 0px #ffffff;}
-	50%{text-shadow: 4px 4px 16px #ffffff;}
-	75%{text-shadow: 0px 0px 0px #ffffff;}
-	100%{text-shadow: 4px 4px 16px #ffffff;}
+	0%{text-shadow: 4px 4px 16px #000000;}
+	25%{text-shadow: 0px 0px 0px #000000;}
+	50%{text-shadow: 4px 4px 16px #000;}
+	75%{text-shadow: 0px 0px 0px #000;}
+	100%{text-shadow: 4px 4px 16px #000;}
 }
 @media screen and (max-width: 300px)
 {
