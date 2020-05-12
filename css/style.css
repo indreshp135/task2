@@ -13,14 +13,12 @@ body
   border: 0;
   background: linear-gradient(to bottom, rgba(117, 114, 113, 0.8) 10%, rgba(40, 49, 77, 0.8) 30%, rgba(29, 35, 71, 0.8) 50%, rgba(19, 25, 28, 0.8) 80%, rgba(15, 14, 14, .8) 100%);
 }
-.more-pens {
-  position: fixed;
-  left: 20px;
-  bottom: 20px;
-  z-index: 10;
-  font-family: "Montserrat";
-  font-size: 12px;
-  height: 500px;
+canvas
+{
+	position: absolute;
+	margin: 0;
+	padding: 0;
+	border:0;
 }
 .canvas_box
 {
@@ -238,13 +236,14 @@ h2:hover,h3:hover
 	display: none;
 	position: absolute;
 	width: 350px;
-	height: 500px;
 	left:calc(25% - 175px);
-	top:50%;
-	transform: translateY(-50%);
+	/*top:50%;
+	transform: translateY(-50%);*/
 	border-style: solid;
 	border-color: white;
 	border-width: 2px;
+	margin: 0px;
+	padding: 0px;
 }
 
 .multiplayer2
@@ -252,11 +251,39 @@ h2:hover,h3:hover
 	display: none;
 	position: absolute;
 	width: 350px;
-	height: 500px;
 	left:calc(75% - 175px);
-	top:50%;
-	transform: translateY(-50%);
+	/*top:50%;
+	transform: translateY(-50%);*/
 	border-style: solid;
 	border-color: white;
 	border-width: 2px;
+}
+
+@media screen and (max-width: 710px)
+{
+	.multiplayer1
+	{
+		position: absolute;
+		top: 0;
+		left: 0;
+		transform: translateY(0);
+	}
+	.multiplayer2
+	{
+		position: absolute;
+		left:356px;
+		top: 0;
+		transform: translateY(0);
+	}
+}
+
+@media screen and (max-width: 360px)
+{
+	.canvas_box
+	{
+		left: 0;
+		top: 0;
+		position: absolute;
+		transform: translateY(0);
+	}
 }

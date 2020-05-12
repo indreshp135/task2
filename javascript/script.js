@@ -1,6 +1,6 @@
 let max_parti = 500;
 let parti = [];
-let frequency = 50;
+let frequency = 10000;
 let init_num = max_parti;
 let max_time = frequency * max_parti;
 let time_to_recreate = false;
@@ -291,9 +291,10 @@ class Paramecium
 function createCanvas() 
 {
   let tela = document.createElement('canvas');
+  tela.id="tel";
   tela.width = window.innerWidth-1;
   tela.height = window.innerHeight-1;
-  document.querySelector("body").append(tela);
+  document.querySelector("body").prepend(tela);
   let canvas = tela.getContext('2d');
   return [tela, canvas];
 }
@@ -317,7 +318,7 @@ function popolate(num)
         parti.push(type);
       };
     }(i),
-    frequency * i);
+    100);
   }
   return parti.length;
 }
@@ -339,6 +340,6 @@ function update()
   {
     if (parti.length < init_num) {popolate(1);}
   }
-  requestAnimationFrame(update.bind(this));
+  setTimeout(update.bind(this),100);
 }
 update();

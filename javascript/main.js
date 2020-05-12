@@ -84,6 +84,10 @@ var lines=function(x,y,cn)
 		}
 		if(c.k[c.r]>120||c.k[c.r]<0)
 		{
+			if(c.k[c.r]>120)
+				c.k[c.r]=123;
+			else
+				c.k[c.r]=0;
 			c.r=c.r+1;
 		}
 		
@@ -121,8 +125,8 @@ var lines=function(x,y,cn)
 var dicircle = function(x,y,cn)
 {
 	var c={x:x,y:y};
-	c.r1=100;
-	c.r2=70;
+	c.r1=120;
+	c.r2=90;
 	c.spd=0;
 	c.acc=0;
 	c.startColor=Math.floor(Math.random()*4);
@@ -494,15 +498,15 @@ function start(cn)
 	burst[cn]=[];
 	pen[cn].lineWidth=15;
 	new gamepoint(X,3*H/4,cn);
-	new circle(X,150,-1,cn);
-	new star(X,150,cn);
-	new colorchange(X,-50,cn);
-	new lines(X,-250,cn);
-	new star(X,-250,cn);
-	new colorchange(X,-450,cn);
-	new dicircle(X,-650,cn);
-	new star(X,-650,cn);
-	new colorchange(X,-850,cn);
+	new circle(X,3*H/4-200,-1,cn);
+	new star(X,3*H/4-200,cn);
+	new colorchange(X,particles[cn][particles[cn].length-1].y-200,cn);
+	new lines(X,particles[cn][particles[cn].length-1].y-200,cn);
+	new star(X,particles[cn][particles[cn].length-1].y,cn);
+	new colorchange(X,particles[cn][particles[cn].length-1].y-200,cn);
+	new dicircle(X,particles[cn][particles[cn].length-1].y-200,cn);
+	new star(X,particles[cn][particles[cn].length-1].y,cn);
+	new colorchange(X,particles[cn][particles[cn].length-1].y-200,cn);
 	slowclicked[cn]=false;
 	multiclicked[cn]=false;
 	s[cn]=0;
@@ -516,7 +520,17 @@ function start(cn)
 function looper(cn)
 {
 	pen[cn].clearRect(0,0,350,H);
-	if(moved[cn]>H-50)
+	cvs[cn].addEventListener("click",function(){click[cn]=true;});
+	window.addEventListener('keydown',function(e)
+	{
+		if(e.keyCode==32||e.keyCode==38)
+		click[0]=true;
+		if(e.keyCode==32)
+			click[1]=true;
+		if(e.keyCode==38)
+			click[2]=true;
+	});
+	if(moved[cn]>H+100)
 	{
 		no=Math.floor(Math.random()*6)
 		switch(no)
@@ -549,34 +563,23 @@ function looper(cn)
 	{
 		gamept[cn].acc=+0.1*5;
 	}
-	if(gamept[cn].y<13*H/16)
+	if(gamept[cn].y==H/2)
 	{
-		if(gamept[cn].y==H/2)
+		for(var i in particles[cn])
 		{
-			for(var i in particles[cn])
-			{
-				particles[cn][i].spd=2*Math.max(-gamept[cn].spd,0);
-				particles[cn][i].acc=2*Math.max(-gamept[cn].acc,0);
-			}
+			particles[cn][i].spd=2*Math.max(-gamept[cn].spd,0);
+			particles[cn][i].acc=2*Math.max(-gamept[cn].acc,0);
 		}
-		else
-		{
-			for(var i in particles[cn])
-			{
-				particles[cn][i].spd=Math.max(-gamept[cn].spd,0);
-				particles[cn][i].acc=Math.max(-gamept[cn].acc,0);
-			}
-		}
-		moved[cn]=particles[cn][0].y-150;
 	}
 	else
 	{
 		for(var i in particles[cn])
 		{
-			particles[cn][i].spd=0;
-			particles[cn][i].acc=0;
+			particles[cn][i].spd=Math.max(-gamept[cn].spd,0);
+			particles[cn][i].acc=Math.max(-gamept[cn].acc,0);
 		}
 	}
+	moved[cn]=particles[cn][0].y;
 	if(!multiclicked[cn])
 	{	
 		for(var i in particles[cn])
@@ -589,16 +592,6 @@ function looper(cn)
 	for(var i in particles[cn])
 		particles[cn][i].draw();
 	gamept[cn].draw();
-	cvs[cn].addEventListener("click",function(){click[cn]=true;});
-	window.addEventListener('keydown',function(e)
-	{
-		if(e.keyCode==32||e.keyCode==38)
-		click[0]=true;
-		if(e.keyCode==32)
-			click[1]=true;
-		if(e.keyCode==38)
-			click[2]=true;
-	})
 	click[cn]=false;
 	document.querySelector("#scrdisp"+cn).innerHTML=s[cn];
 	if(s[0]>hs)
@@ -685,7 +678,7 @@ document.querySelector("#play0").onclick = function()
 	if(run[0]==false)
 	{
 		pl();
-		loop[0]=setInterval("looper("+0+")",100);
+		loop[0]=setInterval("looper("+0+")",60);
 		run[0]=true;
 	}
 }
@@ -801,7 +794,7 @@ function gameoverer(cn)
 		over[2]=false;
 	}
 }
-var br;
+var br=[];
 function gameover(cn)
 {
 	over[cn]=true;
@@ -813,7 +806,7 @@ function gameover(cn)
 	clearInterval(loop[cn]);
 	for(var i=0;i<40;i++)
 		new bursting(cn);
-	br=setInterval(function()
+	br[cn]=setInterval(function()
 	{
 		pen[cn].fillStyle="black";
 		pen[cn].fillRect(0,0,350,H);
@@ -822,11 +815,11 @@ function gameover(cn)
 		kr[cn]++;
 		if(kr[cn]>50)
 		{
-			clearInterval(br);
+			clearInterval(br[cn]);
 			gameoverer(cn);
 			kr[cn]=0;
 		}
-	},100);
+	},60);
 }
 var res=function restart()
 {
@@ -843,23 +836,14 @@ loop[1]=[];
 loop[2]=[];
 document.querySelector(".btn1").onclick = function()
 {
-	if(window.innerWidth<=710)
-	{
-		document.querySelector(".first").style.fontSize="30px";
-		document.querySelector(".first").innerHTML="<h2>Device width is less than 700 px. Minumum game play area is not compactable. Try Single Player</h2>";
-		document.querySelector(".first").onclick=res;
-	}
-	else
-	{
-		document.querySelector(".first").style.display="none";
-		document.querySelector(".multiplayer1").style.display="block";
-		document.querySelector(".multiplayer2").style.display="block";
-		document.querySelector(".back").play();
-		start(1);
-		start(2);
-		loop[1]=setInterval("looper("+1+")",100);
-		loop[2]=setInterval("looper("+2+")",100);
-	}
+	document.querySelector(".first").style.display="none";
+	document.querySelector(".multiplayer1").style.display="block";
+	document.querySelector(".multiplayer2").style.display="block";
+	document.querySelector(".back").play();
+	start(1);
+	start(2);
+	loop[1]=setInterval("looper("+1+")",60);
+	loop[2]=setInterval("looper("+2+")",60);
 }
 function pl()
 {
@@ -868,22 +852,13 @@ function pl()
 var W;
 document.querySelector(".btn").onclick = function()
 {
-	W=window.innerWidth;
-	if(window.innerWidth<350)
-	{
-		document.querySelector(".first").style.fontSize="30px";
-		document.querySelector(".first").innerHTML="<h2>Device width is less than 350 px. Minumux game play area is not compactable. Try in other devices</h2>";
-		document.querySelector("h2").onclick=res;
-	}
-	else
-	{
-		document.querySelector(".first").style.display="none";
-		document.querySelector(".canvas_box").style.display="block";
-		document.querySelector(".back").play();
-		start(0);
-		loop[0]=setInterval("looper("+0+")",100);
-	}
+	document.querySelector(".first").style.display="none";
+	document.querySelector(".canvas_box").style.display="block";
+	document.querySelector(".back").play();
+	start(0);
+	loop[0]=setInterval("looper("+0+")",60);
 }
+
 var hs;
 window.onload
 {
