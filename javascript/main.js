@@ -70,8 +70,8 @@ var lines=function(x,y,cn)
 			pp=(c.color+i)%4;
 			pen[c.cn].beginPath();
 			pen[c.cn].strokeStyle=colors[pp];
-			pen[c.cn].moveTo(c.x+c.k[i]-7.5,c.y+(i-1)*30);
-			pen[c.cn].lineTo(c.x+c.k[i]-107.5,c.y+(i-1)*30);
+			pen[c.cn].moveTo(c.x+c.k[i]-10,c.y+(i-1)*30);
+			pen[c.cn].lineTo(c.x+c.k[i]-110,c.y+(i-1)*30);
 			pen[c.cn].stroke();
 		}
 		if(c.pos)
@@ -113,7 +113,7 @@ var lines=function(x,y,cn)
 		po=gamept[c.cn].y-(c.y+(c.r-1)*30);
 		if(po<0)
 			po=-po;
-		if(colors[(c.color+c.r)%4]!=gamept[c.cn].colortype&&po<=7.5)
+		if(colors[(c.color+c.r)%4]!=gamept[c.cn].colortype&&po<=15)
 		{
 			gameover(cn);
 		}
@@ -461,9 +461,9 @@ var bursting = function(cn)
 {
 	var c={x:gamept[cn].x,y:gamept[cn].y};
 	c.r=4;
-	c.spdx=Math.random()*8-4;
-	c.spdy=-Math.random()*12;
-	c.acc=1;
+	c.spdx=Math.random()*20-10;
+	c.spdy=-Math.random()*40;
+	c.acc=3;
 	c.cn=cn;
 	c.colortype=colors[Math.floor(Math.random()*4)];
 	c.draw = function()
@@ -493,7 +493,7 @@ function start(cn)
 {
 	click[cn]=false;
 	moved[cn]=0;
-	rotatespd[cn]=1;
+	rotatespd[cn]=1.5;
 	particles[cn]=[];
 	burst[cn]=[];
 	pen[cn].lineWidth=15;
@@ -519,7 +519,8 @@ function start(cn)
 
 function looper(cn)
 {
-	pen[cn].clearRect(0,0,350,H);
+	pen[cn].fillStyle="black";
+	pen[cn].fillRect(0,0,350,H);
 	cvs[cn].addEventListener("click",function(){click[cn]=true;});
 	window.addEventListener('keydown',function(e)
 	{
@@ -556,12 +557,12 @@ function looper(cn)
 	}
 	if(click[cn])
 	{
-		gamept[cn].spd=-1*5;
-		gamept[cn].acc=-0.25*4;
-	}
-	if(!click[cn])
-	{
-		gamept[cn].acc=+0.1*5;
+		gamept[cn].spd=-6;
+		if(gamept[cn].acc == 0)
+        {
+            gamept[cn].spd *= 1.2;
+            gamept[cn].acc = 0.3;
+        }
 	}
 	if(gamept[cn].y==H/2)
 	{
@@ -617,9 +618,7 @@ function looper(cn)
 		slowclicked[cn]=false;
 	}
 	if(Tm[cn]>200&&multiclicked[cn])
-	{
 		multiclicked=false;
-	}
 	if(slowclicked[cn])
 	{
 		pen[cn].font="30px Arial";
@@ -858,7 +857,6 @@ document.querySelector(".btn").onclick = function()
 	start(0);
 	loop[0]=setInterval("looper("+0+")",60);
 }
-
 var hs;
 window.onload
 {

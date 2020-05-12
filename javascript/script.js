@@ -1,6 +1,6 @@
 let max_parti = 500;
 let parti = [];
-let frequency = 10000;
+let frequency = 100;
 let init_num = max_parti;
 let max_time = frequency * max_parti;
 let time_to_recreate = false;
