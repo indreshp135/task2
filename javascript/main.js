@@ -493,7 +493,7 @@ function start(cn)
 {
 	click[cn]=false;
 	moved[cn]=0;
-	rotatespd[cn]=1.5;
+	rotatespd[cn]=2;
 	particles[cn]=[];
 	burst[cn]=[];
 	pen[cn].lineWidth=15;
@@ -557,12 +557,12 @@ function looper(cn)
 	}
 	if(click[cn])
 	{
-		gamept[cn].spd=-6;
+		gamept[cn].spd=-6.5;
 		if(gamept[cn].acc == 0)
-        {
-            gamept[cn].spd *= 1.2;
-            gamept[cn].acc = 0.3;
-        }
+        	{
+           	 	gamept[cn].spd *= 1.2;
+            		gamept[cn].acc = 0.3;
+        	}
 	}
 	if(gamept[cn].y==H/2)
 	{
