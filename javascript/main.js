@@ -552,15 +552,15 @@ function start(cn)
 	burst[cn]=[];
 	pen[cn].lineWidth=15;
 	new gamepoint(X,3*H/4,cn);
-	new circle(X,3*H/4-200,-1,cn);
-	new star(X,3*H/4-200,cn);
-	new colorchange(X,particles[cn][particles[cn].length-1].y-200,cn);
-	new lines(X,particles[cn][particles[cn].length-1].y-200,cn);
+	new circle(X,3*H/4-260,-1,cn);
+	new star(X,3*H/4-260,cn);
+	new colorchange(X,particles[cn][particles[cn].length-1].y-260,cn);
+	new lines(X,particles[cn][particles[cn].length-1].y-260,cn);
 	new star(X,particles[cn][particles[cn].length-1].y,cn);
-	new colorchange(X,particles[cn][particles[cn].length-1].y-200,cn);
-	new square(X,particles[cn][particles[cn].length-1].y-200,cn);
+	new colorchange(X,particles[cn][particles[cn].length-1].y-260,cn);
+	new square(X,particles[cn][particles[cn].length-1].y-260,cn);
 	new star(X,particles[cn][particles[cn].length-1].y,cn);
-	new colorchange(X,particles[cn][particles[cn].length-1].y-200,cn);
+	new colorchange(X,particles[cn][particles[cn].length-1].y-260,cn);
 	slowclicked[cn]=false;
 	multiclicked[cn]=false;
 	s[cn]=0;
@@ -591,30 +591,30 @@ function looper(cn)
 		switch(no)
 		{
 			case 0:
-				new circle(X,particles[cn][particles[cn].length-1].y-200,1,cn);
+				new circle(X,particles[cn][particles[cn].length-1].y-260,1,cn);
 				break;
 			case 1:
-				new dicircle(X,particles[cn][particles[cn].length-1].y-200,cn);
+				new dicircle(X,particles[cn][particles[cn].length-1].y-260,cn);
 				break;
 			case 2:
-				new bicircle(X,particles[cn][particles[cn].length-1].y-200,cn);
+				new bicircle(X,particles[cn][particles[cn].length-1].y-260,cn);
 				break;
 			case 3:
-				new circle(X,particles[cn][particles[cn].length-1].y-200,-1,cn);
+				new circle(X,particles[cn][particles[cn].length-1].y-260,-1,cn);
 				break;
 			case 4:
-				new square(X,particles[cn][particles[cn].length-1].y-200,cn);
+				new square(X,particles[cn][particles[cn].length-1].y-260,cn);
 				break;
 			default:
-				new lines(X,particles[cn][particles[cn].length-1].y-200,cn);
+				new lines(X,particles[cn][particles[cn].length-1].y-260,cn);
 		}
 		new star(X,particles[cn][particles[cn].length-1].y,cn);
-		new colorchange(X,particles[cn][particles[cn].length-1].y-200,cn);	
+		new colorchange(X,particles[cn][particles[cn].length-1].y-260,cn);	
 		particles[cn].splice(0,3);
 	}
 	if(click[cn])
 	{
-		gamept[cn].spd=-6.5;
+		gamept[cn].spd=-6.7;
 		if(gamept[cn].acc == 0)
         	{
            	 	gamept[cn].spd *= 1.2;
