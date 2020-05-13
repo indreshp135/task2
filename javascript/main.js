@@ -51,6 +51,60 @@ var modAng = function(x)
 
 //obstacles
 
+var square = function(x,y,cn)
+{
+	var c={x:x,y:y};
+	c.angle=Math.PI/2;
+	c.sizer=80*Math.sqrt(2);
+	c.deg=0;
+	c.color=0;
+	c.cn=cn;
+	c.spd=0;
+	c.acc=0;
+	c.draw=function()
+	{
+		for(var i=0;i<4;i++)
+		{
+			pp=(c.color+i)%4;
+			pen[c.cn].beginPath();
+			pen[c.cn].strokeStyle=colors[pp];
+			pen[c.cn].moveTo(c.x+Math.cos(c.deg)*c.sizer,c.y+Math.sin(c.deg)*c.sizer);
+			c.deg+=Math.PI/2;
+			pen[c.cn].lineTo(c.x+Math.cos(c.deg)*(c.sizer+10),c.y+Math.sin(c.deg)*(c.sizer+10));
+			pen[c.cn].stroke();
+		}
+		c.deg=c.deg+rotatespd[c.cn]*3*Math.PI/180;
+		c.spd=c.spd+c.acc;
+		c.y=c.y+c.spd;
+	}
+	c.hit=function()
+	{
+		for(var i=0;i<4;i++)
+		{
+			x1=c.x+Math.cos(c.deg)*c.sizer;
+			y1=c.y+Math.sin(c.deg)*c.sizer;
+			c.deg+=Math.PI/2;
+			x2=c.x+Math.cos(c.deg)*(c.sizer+10);
+			y2=c.y+Math.sin(c.deg)*(c.sizer+10);
+			x=c.x;
+			y=((x1-x)*(y2-y1)/(x2-x1)-y1)+c.y;
+			if(y<=c.sizer+10&&y>=-c.sizer-10)
+			{
+				kp=(gamept[c.cn].y-y-c.y);
+				pp=(c.color+i+2)%4;
+				if(kp<0)
+					kp=-kp;
+				if(gamept[c.cn].colortype!=colors[pp]&&kp<=15)
+				{
+					gameover(c.cn);
+				}
+			}
+		}
+	}
+	c.hits=function(){}
+	particles[c.cn].push(c);
+}
+
 var lines=function(x,y,cn)
 {
 	var c={x:x,y:y};
@@ -504,7 +558,7 @@ function start(cn)
 	new lines(X,particles[cn][particles[cn].length-1].y-200,cn);
 	new star(X,particles[cn][particles[cn].length-1].y,cn);
 	new colorchange(X,particles[cn][particles[cn].length-1].y-200,cn);
-	new dicircle(X,particles[cn][particles[cn].length-1].y-200,cn);
+	new square(X,particles[cn][particles[cn].length-1].y-200,cn);
 	new star(X,particles[cn][particles[cn].length-1].y,cn);
 	new colorchange(X,particles[cn][particles[cn].length-1].y-200,cn);
 	slowclicked[cn]=false;
@@ -547,6 +601,9 @@ function looper(cn)
 				break;
 			case 3:
 				new circle(X,particles[cn][particles[cn].length-1].y-200,-1,cn);
+				break;
+			case 4:
+				new square(X,particles[cn][particles[cn].length-1].y-200,cn);
 				break;
 			default:
 				new lines(X,particles[cn][particles[cn].length-1].y-200,cn);
